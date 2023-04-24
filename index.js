@@ -124,8 +124,6 @@ const pesquisar = (palavra) => {
     return getVs
 }
 
-console.log(getRandomVersiculo())
-
 module.exports = {
     getCapitulo,
     getRandomCapitulo,

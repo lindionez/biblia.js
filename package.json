@@ -1,12 +1,17 @@
 {
   "name": "biblia.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Bíblia-sagrada.js",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lindionez/biblia.js.git"
+  },
+  "homepage": "https://github.com/lindionez/biblia.js#readme",
   "keywords": ["biblia", "biblia.js", "biblia-sagrada", "biblia-sagrada.js", "lindionez/biblia.js"],
   "author": "lindionez",
   "license": "MIT"
