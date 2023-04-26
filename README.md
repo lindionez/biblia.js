@@ -1,13 +1,22 @@
-## Instalação
-> npm install biblia.js
->
-> npm uninstall biblia.js
+<p align="center">
+  <img src="https://sercristaosempre.files.wordpress.com/2014/02/bc3adblia-sagrada-traduc3a7c3a3o-almeida.jpg" alt="shinoa" />
+</p>
 
-## ```PESQUISAR```
+<div align="center">
+<h2> BÍBLIA-SAGRADA </h2>
+</div>
+<div align="center">
+<h4> ▪Add the bible in your javascript project! </h4>
+</div>
+
+## Installation
+> npm install biblia.js
+
+## ```SEARCH```
 ```js
 const biblia = require('biblia.js')
 
-// Retorna o capitulo solicitado.
+// Return the entire requested chapter.
 const capitulo = biblia.getCapitulo('salmos', '23')
 console.log(capitulo) 
 {
@@ -23,7 +32,7 @@ console.log(capitulo)
 }
 
 
-// Retorna o capitulo solicitado em um array.
+// Return the entire requested chapter in array.
 const capituloArray = biblia.getCapitulo('salmos', '23', false)
 console.log(capituloArray)
 {
@@ -41,7 +50,7 @@ console.log(capituloArray)
 }
 
 
-// Retorna o versiculo solicitado
+// Return the requested verse.
 const versiculo = biblia.getVersiculo('salmos', '23:1')
 console.log(versiculo)
 {
@@ -53,7 +62,7 @@ console.log(versiculo)
 }
 
 
-// Retorna a escrita de um dos resultados encontrados.
+// Returns a random verse where the word is inclu
 const pesquisar = biblia.pesquisar('mandamentos')
 console.log(pesquisar)
 {
@@ -64,7 +73,7 @@ console.log(pesquisar)
   escrita: 'De tudo o que se tem ouvido, o fim é: Teme a Deus, e guarda os seus mandamentos; porque isto é o dever de todo o homem.'
 }
 
-// Retorna um array com todos os locais encontrados.
+// Returns an array of all found locations.
 const pesquisarArray = biblia.pesquisarPalavra('mandamentos')
 console.log(pesquisarArray)
 [
@@ -103,11 +112,11 @@ console.log(pesquisarArray)
 
 ```
 
-## ```ALEATÓRIO```
+## ```RANDOM```
 ```js
 const biblia = require('biblia.js')
 
-// Retorna um capítulo aleatório.
+// Return a random chapter.
 const capitulo = biblia.getRandomCapitulo()
 console.log(capitulo)
 {
@@ -144,7 +153,7 @@ console.log(capitulo)
 }
 
 
-// Retorna um versículo aleatório.
+// Return a random verse.
 const versiculo = biblia.getRandomVersiculo()
 console.log(versiculo)
 {

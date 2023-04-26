@@ -31,7 +31,7 @@ const getLivro = (livro) => {
 }
 
 /** 
-* Retorna o capitulo solicitado.
+* Return the entire requested chapter.
 * @param {string} livro 
 * @param {string} numero 
 * @param {boolean} toString 
@@ -48,7 +48,7 @@ const getCapitulo = (livro, numero, toString = true) => {
 }
 
 /** 
-* Retorna o versiculo solicitado
+* Return only the requested verse.
 * @param {string} livro 
 * @param {string} numero 
 */
@@ -69,7 +69,7 @@ const getRandomLivro = () => {
 }
 
 /** 
-* Retorna um capítulo aleatório.
+* Return a random chapter.
 */
 const getRandomCapitulo = () => {
     const livro = getRandomLivro()
@@ -78,7 +78,7 @@ const getRandomCapitulo = () => {
 }
 
 /** 
-* Retorna um versículo aleatório.
+* Return a random verse.
 */
 const getRandomVersiculo = () => {
     const capituloJson = getRandomCapitulo()
@@ -87,7 +87,7 @@ const getRandomVersiculo = () => {
 }
 
 /** 
-* Retorna um array com todos os locais encontrados.
+* Returns an array of all found locations.
 * @param {string} palavra 
 */
 const pesquisarPalavra = (palavra) => {
@@ -113,7 +113,7 @@ const pesquisarPalavra = (palavra) => {
 }
 
 /** 
-* Retorna a escrita de um dos resultados encontrados.
+* Returns a random verse where the word is included.
 * @param {string} palavra 
 */
 const pesquisar = (palavra) => {
