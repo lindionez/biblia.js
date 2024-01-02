@@ -101,6 +101,7 @@ const pesquisarPalavra = async (palavra) => {
 */
 const pesquisar = async (palavra) => {
     const resultadoFinal = await useFork('palavra', palavra)
+    if (!resultadoFinal.status) return { status: false }
     const getVs = getVersiculo(resultadoFinal.livro, `${resultadoFinal.capitulo}:${resultadoFinal.versiculo}`)
     return getVs
 }
