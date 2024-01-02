@@ -33,7 +33,6 @@ const check = (palavra) => {
 */
 const pesquisarPalavra = (palavra) => {
     const checarPalavraJaUsada = check(palavra)
-    console.log(checarPalavraJaUsada !== false)
     if (checarPalavraJaUsada !== false) return save[checarPalavraJaUsada].result
     let positions = [];
     biblia.forEach(livro => {
