@@ -26,7 +26,7 @@ const useFork = async (tipo, get) => {
                 }, 500);
                 resolve(salvo[conferir])
             }
-        }, 3 * 1000);
+        }, 2 * 1000);
         var chega = setTimeout(() => {
             clearInterval(pegar);
             resolve({ result: undefined })

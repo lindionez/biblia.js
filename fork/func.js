@@ -1,5 +1,6 @@
 /******** Feito por Lindionez Macedo ********/
 const biblia = require('../biblia.json')
+const save = []
 
 const retira_acentos = (str) => {
     const com_acento = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæèéêëìíîïðñòóôõöøùúûüýþÿŕ";
@@ -21,11 +22,19 @@ const retira_acentos = (str) => {
     return novastr;
 }
 
+const check = (palavra) => {
+    const position = save.findIndex(e => e.palavra === palavra);
+    return position !== -1 ? position : false;
+}
+
 /** 
 * Returns an array of all found locations.
 * @param {string} palavra 
 */
 const pesquisarPalavra = (palavra) => {
+    const checarPalavraJaUsada = check(palavra)
+    console.log(checarPalavraJaUsada !== false)
+    if (checarPalavraJaUsada !== false) return save[checarPalavraJaUsada].result
     let positions = [];
     biblia.forEach(livro => {
         if (livro.capitulos && Array.isArray(livro.capitulos)) {
@@ -44,6 +53,7 @@ const pesquisarPalavra = (palavra) => {
             });
         }
     });
+    save.push({ palavra: palavra, result: positions })
     return positions;
 }
 
