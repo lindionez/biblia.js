@@ -1,6 +1,6 @@
 {
   "name": "biblia.js",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Bíblia-sagrada.js",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,16 @@
     "url": "git+https://github.com/lindionez/biblia.js.git"
   },
   "homepage": "https://github.com/lindionez/biblia.js#readme",
-  "keywords": ["biblia", "biblia.js", "biblia-sagrada", "biblia-sagrada.js", "lindionez/biblia.js"],
+  "keywords": [
+    "biblia",
+    "biblia.js",
+    "biblia-sagrada",
+    "biblia-sagrada.js",
+    "lindionez/biblia.js"
+  ],
   "author": "lindionez",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "child_process": "^1.0.2"
+  }
 }

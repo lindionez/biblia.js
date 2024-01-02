@@ -1,5 +1,5 @@
 /******** Feito por Lindionez Macedo ********/
-const { fork } = require('node:child_process')
+const { fork } = require('child_process')
 const func = fork(`${__dirname}/func.js`)
 let salvo = []
 
