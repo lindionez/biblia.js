@@ -74,7 +74,7 @@ console.log(pesquisar)
 }
 
 // Returns an array of all found locations.
-const pesquisarArray = biblia.pesquisarPalavra('mandamentos')
+const pesquisarArray = await biblia.pesquisarPalavra('mandamentos')
 console.log(pesquisarArray)
 [
   { livro: 'Êxodo', capitulo: 15, versiculo: 26 },
@@ -117,7 +117,7 @@ console.log(pesquisarArray)
 const biblia = require('biblia.js')
 
 // Return a random chapter.
-const capitulo = biblia.getRandomCapitulo()
+const capitulo = await biblia.getRandomCapitulo()
 console.log(capitulo)
 {
   status: true,
