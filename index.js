@@ -1,5 +1,6 @@
 /******** Feito por Lindionez Macedo ********/
 const biblia = require('./biblia.json')
+const { useFork } = require('./fork')
 
 const retira_acentos = (str) => {
     const com_acento = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæèéêëìíîïðñòóôõöøùúûüýþÿŕ";
@@ -90,39 +91,22 @@ const getRandomVersiculo = () => {
 * Returns an array of all found locations.
 * @param {string} palavra 
 */
-const pesquisarPalavra = (palavra) => {
-    let positions = [];
-    biblia.forEach(livro => {
-        if (livro.capitulos && Array.isArray(livro.capitulos)) {
-            livro.capitulos.forEach((capítulo, i) => {
-                if (Array.isArray(capítulo)) {
-                    capítulo.forEach((bloco, j) => {
-                        if (typeof bloco === 'string' && retira_acentos(bloco).toLowerCase().includes(retira_acentos(palavra.toLowerCase()))) {
-                            positions.push({
-                                livro: livro.nome,
-                                capitulo: i + 1,
-                                versiculo: j + 1,
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    });
-    return positions;
+const pesquisarPalavra = async (palavra) => {
+    return await useFork('pspalavra', palavra)
 }
 
 /** 
 * Returns a random verse where the word is included.
 * @param {string} palavra 
 */
-const pesquisar = (palavra) => {
-    const result = pesquisarPalavra(palavra)
-    if (!result.length) return { status: false }
-    const resultadoFinal = result[Math.floor(Math.random() * result.length)]
+const pesquisar = async (palavra) => {
+    const resultadoFinal = await useFork('palavra', palavra)
     const getVs = getVersiculo(resultadoFinal.livro, `${resultadoFinal.capitulo}:${resultadoFinal.versiculo}`)
     return getVs
 }
+
+// const get = async () => { console.log(await pesquisarPalavra('jesus')); process.exit() }
+// get()
 
 module.exports = {
     getCapitulo,
