@@ -101,12 +101,12 @@ const pesquisarPalavra = async (palavra) => {
 */
 const pesquisar = async (palavra) => {
     const resultadoFinal = await useFork('palavra', palavra)
-    if (!resultadoFinal.status) return { status: false }
+    if (resultadoFinal === null) return { status: false }
     const getVs = getVersiculo(resultadoFinal.livro, `${resultadoFinal.capitulo}:${resultadoFinal.versiculo}`)
     return getVs
 }
 
-// const get = async () => { console.log(await pesquisarPalavra('jesus')); process.exit() }
+// const get = async () => { console.log(await pesquisar('jesus')); process.exit() }
 // get()
 
 module.exports = {

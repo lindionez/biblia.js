@@ -62,7 +62,7 @@ const pesquisarPalavra = (palavra) => {
 */
 const pesquisar = (palavra) => {
     const result = pesquisarPalavra(palavra)
-    if (!result.length) return { status: false }
+    if (!result.length) return null
     const resultadoFinal = result[Math.floor(Math.random() * result.length)]
     return resultadoFinal
 }
