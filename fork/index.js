@@ -23,7 +23,7 @@ const useFork = async (tipo, get) => {
                     clearInterval(pegar)
                     clearTimeout(chega)
                     salvo.splice(conferir, 1)
-                }, 500);
+                }, 200);
                 resolve(salvo[conferir])
             }
         }, 2 * 1000);
