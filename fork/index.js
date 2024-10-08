@@ -19,14 +19,13 @@ const useFork = async (tipo, get) => {
         var pegar = setInterval(() => {
             const conferir = positionCheck(id, salvo)
             if (conferir !== false) {
-                setTimeout(() => {
-                    clearInterval(pegar)
-                    clearTimeout(chega)
-                    salvo.splice(conferir, 1)
-                }, 200);
-                resolve(salvo[conferir])
+                const result = salvo[conferir]
+                clearInterval(pegar)
+                clearTimeout(chega)
+                salvo.splice(conferir, 1)
+                resolve(result)
             }
-        }, 2 * 1000);
+        }, 500);
         var chega = setTimeout(() => {
             clearInterval(pegar);
             resolve({ result: undefined })

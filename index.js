@@ -1,5 +1,5 @@
 /******** Feito por Lindionez Macedo ********/
-const biblia = require('./biblia.json')
+const biblia = require('./database/biblia.json')
 const { useFork } = require('./fork')
 
 const retira_acentos = (str) => {
