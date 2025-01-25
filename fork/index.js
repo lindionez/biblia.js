@@ -25,11 +25,11 @@ const useFork = async (tipo, get) => {
                 salvo.splice(conferir, 1)
                 resolve(result)
             }
-        }, 500);
+        }, 250);
         var chega = setTimeout(() => {
             clearInterval(pegar);
             resolve({ result: undefined })
-        }, 60 * 1000);
+        }, 120 * 1000);
     })
     return resposta?.result
 }

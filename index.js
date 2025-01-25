@@ -23,12 +23,14 @@ const retira_acentos = (str) => {
 }
 
 const getLivro = (livro) => {
-    let result = []
+    let result = []; resultExtremeAntiBugChato = []
     Object.keys(biblia).forEach(i => {
+        if (biblia[i].nome.replace(/ /gi, '').toLowerCase() === livro.replace(/ /gi, '').toLowerCase()) resultExtremeAntiBugChato = i
+        if (!resultExtremeAntiBugChato.length && biblia[i].abv.replace(/ /gi, '').toLowerCase() === livro.replace(/ /gi, '').toLowerCase()) resultExtremeAntiBugChato = i
         if (retira_acentos(biblia[i].nome.replace(/ /gi, '')).toLowerCase() === retira_acentos(livro.replace(/ /gi, '')).toLowerCase()) result = i
         if (!result.length && retira_acentos(biblia[i].abv.replace(/ /gi, '')).toLowerCase() === retira_acentos(livro.replace(/ /gi, '')).toLowerCase()) result = i
     });
-    return biblia[result]
+    return biblia[resultExtremeAntiBugChato.length ? resultExtremeAntiBugChato : result]
 }
 
 /** 
