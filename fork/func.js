@@ -1,26 +1,9 @@
 /******** Feito por Lindionez Macedo ********/
 const biblia = require('../database/biblia.json')
-const save = []
+const { util, cache } = require('../tools')
 
-const retira_acentos = (str) => {
-    const com_acento = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæèéêëìíîïðñòóôõöøùúûüýþÿŕ";
-    const sem_acento = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYRsBaaaaaaaeeeeiiiionoooooouuuuybyr";
-    let novastr = "";
-    for (i = 0; i < str.length; i++) {
-        var troca = false;
-        for (a = 0; a < com_acento.length; a++) {
-            if (str.substr(i, 1) == com_acento.substr(a, 1)) {
-                novastr += sem_acento.substr(a, 1);
-                troca = true;
-                break;
-            }
-        }
-        if (troca == false) {
-            novastr += str.substr(i, 1);
-        }
-    }
-    return novastr;
-}
+const save = []
+const cacheSave = []
 
 const check = (palavra) => {
     const position = save.findIndex(e => e.palavra === palavra);
@@ -32,6 +15,7 @@ const check = (palavra) => {
 * @param {string} palavra 
 */
 const pesquisarPalavra = (palavra) => {
+    if (cache.hasCache(palavra, cacheSave)) return cache.getCache(palavra, cacheSave)
     const checarPalavraJaUsada = check(palavra)
     if (checarPalavraJaUsada !== false) return save[checarPalavraJaUsada].result
     let positions = [];
@@ -40,7 +24,7 @@ const pesquisarPalavra = (palavra) => {
             livro.capitulos.forEach((capítulo, i) => {
                 if (Array.isArray(capítulo)) {
                     capítulo.forEach((bloco, j) => {
-                        if (typeof bloco === 'string' && retira_acentos(bloco).toLowerCase().includes(retira_acentos(palavra.toLowerCase()))) {
+                        if (typeof bloco === 'string' && util.retira_acentos(bloco).toLowerCase().includes(util.retira_acentos(palavra.toLowerCase()))) {
                             positions.push({
                                 livro: livro.nome,
                                 capitulo: i + 1,
@@ -53,6 +37,7 @@ const pesquisarPalavra = (palavra) => {
         }
     });
     save.push({ palavra: palavra, result: positions })
+    cache.setCache(palavra, positions, cacheSave)
     return positions;
 }
 

@@ -2,33 +2,19 @@
 const biblia = require('./database/biblia.json')
 const { useFork } = require('./fork')
 
-const retira_acentos = (str) => {
-    const com_acento = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæèéêëìíîïðñòóôõöøùúûüýþÿŕ";
-    const sem_acento = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYRsBaaaaaaaeeeeiiiionoooooouuuuybyr";
-    let novastr = "";
-    for (i = 0; i < str.length; i++) {
-        var troca = false;
-        for (a = 0; a < com_acento.length; a++) {
-            if (str.substr(i, 1) == com_acento.substr(a, 1)) {
-                novastr += sem_acento.substr(a, 1);
-                troca = true;
-                break;
-            }
-        }
-        if (troca == false) {
-            novastr += str.substr(i, 1);
-        }
-    }
-    return novastr;
-}
+const { util } = require('./tools')
 
+/** 
+* Return all book
+* @param {string} livro 
+*/
 const getLivro = (livro) => {
     let result = []; resultExtremeAntiBugChato = []
     Object.keys(biblia).forEach(i => {
-        if (biblia[i].nome.replace(/ /gi, '').toLowerCase() === livro.replace(/ /gi, '').toLowerCase()) resultExtremeAntiBugChato = i
-        if (!resultExtremeAntiBugChato.length && biblia[i].abv.replace(/ /gi, '').toLowerCase() === livro.replace(/ /gi, '').toLowerCase()) resultExtremeAntiBugChato = i
-        if (retira_acentos(biblia[i].nome.replace(/ /gi, '')).toLowerCase() === retira_acentos(livro.replace(/ /gi, '')).toLowerCase()) result = i
-        if (!result.length && retira_acentos(biblia[i].abv.replace(/ /gi, '')).toLowerCase() === retira_acentos(livro.replace(/ /gi, '')).toLowerCase()) result = i
+        if (biblia[i].nome.replace(/ /gi, '').toLowerCase() === livro.replace(/ /gi, '').toLowerCase()) resultExtremeAntiBugChato = i // It is important to stay here, to avoid problems with accentuation
+        if (!resultExtremeAntiBugChato.length && biblia[i].abv.replace(/ /gi, '').toLowerCase() === livro.replace(/ /gi, '').toLowerCase()) resultExtremeAntiBugChato = i // It is important to stay here, to avoid problems with accentuation
+        if (util.retira_acentos(biblia[i].nome.replace(/ /gi, '')).toLowerCase() === util.retira_acentos(livro.replace(/ /gi, '')).toLowerCase()) result = i // result ignoring accents
+        if (!result.length && util.retira_acentos(biblia[i].abv.replace(/ /gi, '')).toLowerCase() === util.retira_acentos(livro.replace(/ /gi, '')).toLowerCase()) result = i // result ignoring accents
     });
     return biblia[resultExtremeAntiBugChato.length ? resultExtremeAntiBugChato : result]
 }
@@ -112,6 +98,7 @@ const pesquisar = async (palavra) => {
 // get()
 
 module.exports = {
+    getLivro,
     getCapitulo,
     getRandomCapitulo,
     getRandomVersiculo,

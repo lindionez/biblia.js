@@ -1,39 +1,40 @@
 /******** Feito por Lindionez Macedo ********/
-const { fork } = require('child_process')
-const func = fork(`${__dirname}/func.js`)
-let salvo = []
+const { fork } = require('child_process');
+const func = fork(`${__dirname}/func.js`);
 
-func.on('message', msg => {
-    salvo.push(msg)
-})
+// armazenar resolvers pendentes
+const pending = new Map();
 
-const positionCheck = (id, _dir) => {
-    const position = _dir.findIndex(item => item.id === id);
-    return position !== -1 ? position : false;
-}
+// escuta as mensagens vindas do fork
+func.on('message', (msg) => {
+    const { id, result } = msg;
+    const resolver = pending.get(id);
+    if (resolver) {
+        resolver(result);
+        pending.delete(id);
+    }
+});
 
-const useFork = async (tipo, get) => {
-    const id = Math.floor(Math.random() * (20000 - 10000 + 1) + 10000);
-    func.send({ id: id, tipo: tipo, get: get })
-    const resposta = await new Promise((resolve, reject) => {
-        var pegar = setInterval(() => {
-            const conferir = positionCheck(id, salvo)
-            if (conferir !== false) {
-                const result = salvo[conferir]
-                clearInterval(pegar)
-                clearTimeout(chega)
-                salvo.splice(conferir, 1)
-                resolve(result)
+const useFork = (tipo, get) => {
+    return new Promise((resolve) => {
+        const id = Math.floor(Math.random() * (20000 - 10000 + 1) + 10000);
+
+        // registrar a promise
+        pending.set(id, resolve);
+
+        // mandar para o processo filho
+        func.send({ id, tipo, get });
+
+        // timeout de segurança
+        setTimeout(() => {
+            if (pending.has(id)) {
+                resolve(undefined);
+                pending.delete(id);
             }
-        }, 250);
-        var chega = setTimeout(() => {
-            clearInterval(pegar);
-            resolve({ result: undefined })
-        }, 120 * 1000);
-    })
-    return resposta?.result
-}
+        }, 120 * 1000); // 120s
+    });
+};
 
 module.exports = {
-    useFork
-}
+    useFork,
+};
